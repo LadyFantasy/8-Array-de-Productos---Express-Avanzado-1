@@ -5,6 +5,8 @@ const router = express.Router();
 const Productos = require("./api/productos");
 const instanceProductos = new Productos();
 
+
+// RUTAS
 router.get("/productos/listar", (req, res) => {
   const productos = instanceProductos.listar();
   res.json(productos.length > 0 ? productos : { error: "no hay productos cargados" });
@@ -18,7 +20,6 @@ router.get("/productos/listar/:id", (req, res) => {
 
 router.post("/productos/guardar", (req, res) => {
   const body = req.body;
-  console.log("body", body);
   const product = instanceProductos.guardar(body);
   res.send(product ?? { error: "Falta rellenar campos" });
 });
@@ -26,7 +27,6 @@ router.post("/productos/guardar", (req, res) => {
 router.put("/productos/actualizar/:id", (req, res) => {
   const body = req.body;
   const id = req.params.id;
-
   const product = instanceProductos.actualizar(id, body);
   res.send(product ?? { error: "producto no encontrado" });
 });
@@ -34,7 +34,6 @@ router.put("/productos/actualizar/:id", (req, res) => {
 router.delete("/productos/borrar/:id", (req, res) => {
   const id = req.params.id;
   const product = instanceProductos.borrar(id);
-
   res.send(product ?? { error: "producto no encontrado" });
 });
 

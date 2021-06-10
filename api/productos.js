@@ -53,5 +53,4 @@ class Productos {
   }
 }
 
-// exporto una instancia de la clase
 module.exports = Productos;
