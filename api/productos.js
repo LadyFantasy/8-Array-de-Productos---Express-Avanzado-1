@@ -17,13 +17,39 @@ class Productos {
   }
 
   guardar(body) {
+    if (body.title && body.price && body.thumbnail) {
+      let { title, price, thumbnail } = body;
+      price = Number(price);
+      const id = this.arrproductos.length + 1;
+      const product = { title, price, thumbnail, id };
+
+      this.arrproductos.push(product);
+
+      return product;
+    } else return;
+  }
+
+  actualizar(id, body) {
     const { title, price, thumbnail } = body;
-    const id = this.arrproductos.length + 1;
-    const product = { title, price, thumbnail, id };
+    id = Number(id);
+    const newProduct = { title, price, thumbnail, id };
 
-    this.arrproductos = [...arrProds, product];
+    let correctId = this.listarId(id);
 
-    return product;
+    if (correctId) {
+      let producto = this.arrproductos.findIndex(product => product.id == id);
+      this.arrproductos[producto] = newProduct;
+      return newProduct;
+    } else return;
+  }
+
+  borrar(id) {
+    let correctId = this.listarId(id);
+
+    if (correctId) {
+      this.arrproductos = this.arrproductos.filter(product => product.id != id);
+      return correctId;
+    } else return;
   }
 }
 
